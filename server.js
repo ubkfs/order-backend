@@ -26,9 +26,9 @@ const Order = mongoose.model("Order",{
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "usamabinkashem03@gmail.com",
-    pass: "Qpalzmwoskxn03@"
-  }
+  user: process.env.EMAIL_USER,
+  pass: process.env.EMAIL_PASS
+}
 });
 
 // ✅ Place Order API
@@ -38,8 +38,8 @@ app.post("/order", async (req,res)=>{
 
     // 📧 Send Email to Owner
     await transporter.sendMail({
-      from: "usamabinkashem03@gmail.com",
-      to: "usamabinkashem03@gmail.com",
+      from: "testingubk@gmail.com",
+      to: "testingubk@gmail.com",
       subject: "🛒 New Order Received",
       text: `
 New Order Received
@@ -81,4 +81,5 @@ app.get("/order/:id", async (req,res)=>{
 });
 
 // ✅ Start Server
-app.listen(5000,()=>console.log("🚀 Server running on port 5000"));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log("Server running"));
